@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkEase — Smart Parking Dashboard</title>
+    <meta name="description" content="ParkEase smart parking lot monitoring dashboard with real-time occupancy tracking and analytics.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <rect width="28" height="28" rx="8" fill="url(#logoGrad)"/>
+                        <text x="7" y="20" font-size="16" font-weight="700" fill="white">P</text>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
+                                <stop stop-color="#6366f1"/>
+                                <stop offset="1" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">ParkEase</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" id="navDashboard">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" id="navParking">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <span>Parking Map</span>
+            </a>
+            <a href="#" class="nav-item" id="navAnalytics">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-item" id="navZones">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Zones</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <div class="status-dot online"></div>
+                <span>System Online</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header Bar -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div>
+                    <h1 class="page-title">ParkEase</h1>
+                    <p class="page-subtitle">Smart Parking Dashboard</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="live-badge">
+                    <div class="live-dot"></div>
+                    LIVE
+                </div>
+                <div class="header-time" id="headerTime">--:--:--</div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Stats Cards Row -->
+            <section class="stats-row">
+                <div class="stat-card" id="totalSpots">
+                    <div class="stat-icon total">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Spots</span>
+                        <span class="stat-value" id="totalSpotsValue">37</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="availableSpots">
+                    <div class="stat-icon available">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Available</span>
+                        <span class="stat-value available-text" id="availableValue">24</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="occupiedSpots">
+                    <div class="stat-icon occupied">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Occupied</span>
+                        <span class="stat-value occupied-text" id="occupiedValue">13</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="occupancyRate">
+                    <div class="stat-icon rate">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Occupancy Rate</span>
+                        <span class="stat-value rate-text" id="occupancyRateValue">35%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Grid -->
+            <div class="main-grid">
+                <!-- Live Video Feed -->
+                <section class="card parking-map-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" style="margin-right:6px;vertical-align:middle;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="var(--red)"/></svg>
+                            Live Camera Feed
+                        </h2>
+                        <div class="card-legend">
+                            <span class="legend-item"><span class="legend-dot available"></span> Available</span>
+                            <span class="legend-item"><span class="legend-dot occupied"></span> Occupied</span>
+                        </div>
+                    </div>
+                    <div class="video-feed-container" id="videoFeedContainer">
+                        <!-- MJPEG stream from backend (hidden by default, shown when backend is live) -->
+                        <img id="mjpegStream" src="/api/video_feed" style="display:none; width:100%;" alt="Live CCTV Feed"/>
+                        <!-- Fallback: local video + canvas overlay for standalone mode -->
+                        <video id="parkingVideo" src="vid1.mp4" muted loop playsinline></video>
+                        <canvas id="overlayCanvas"></canvas>
+                        <!-- CCTV HUD Overlay (shown only in fallback mode) -->
+                        <div class="hud-overlay-group" id="hudOverlayGroup">
+                            <div class="hud-top-left">
+                                <span class="hud-cam">CAM-01 &nbsp;|&nbsp; PARKING LOT A</span>
+                            </div>
+                            <div class="hud-top-right">
+                                <div class="hud-rec"><span class="rec-dot"></span>REC</div>
+                            </div>
+                            <div class="hud-bottom-left">
+                                <span class="hud-timestamp" id="hudTimestamp">2026-03-13 14:09:30</span>
+                            </div>
+                            <div class="hud-bottom-right">
+                                <span class="hud-spots" id="hudSpots">Available: 24 / 37</span>
+                            </div>
+                        </div>
+                        <!-- Video Controls (fallback mode only) -->
+                        <div class="video-controls" id="videoControls">
+                            <button class="vid-btn" id="playPauseBtn" title="Play / Pause">
+                                <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                                <svg id="pauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                            </button>
+                            <div class="vid-progress-wrap">
+                                <div class="vid-progress-bar" id="vidProgressBar">
+                                    <div class="vid-progress-fill" id="vidProgressFill"></div>
+                                </div>
+                            </div>
+                            <button class="vid-btn" id="overlayToggle" title="Toggle zone overlay">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Occupancy Donut Chart -->
+                    <section class="card donut-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Occupancy Overview</h2>
+                        </div>
+                        <div class="donut-container">
+                            <canvas id="donutChart" width="200" height="200"></canvas>
+                            <div class="donut-center">
+                                <span class="donut-percent" id="donutPercent">35%</span>
+                                <span class="donut-label">Occupied</span>
+                            </div>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="donut-legend-item">
+                                <span class="legend-color available"></span>
+                                <span>Available</span>
+                                <span class="legend-count" id="donutAvail">24</span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <span class="legend-color occupied"></span>
+                                <span>Occupied</span>
+                                <span class="legend-count" id="donutOccupied">13</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Hourly Trend -->
+                    <section class="card trend-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Hourly Trend</h2>
+                        </div>
+                        <div class="trend-container">
+                            <canvas id="trendChart" width="400" height="160"></canvas>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="bottom-grid">
+                <!-- Zone Status Table -->
+                <section class="card zone-table-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Zone Details</h2>
+                        <div class="table-filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="available">Available</button>
+                            <button class="filter-btn" data-filter="occupied">Occupied</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="zone-table" id="zoneTable">
+                            <thead>
+                                <tr>
+                                    <th>Zone</th>
+                                    <th>Row</th>
+                                    <th>Status</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="zoneTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Activity Feed -->
+                <section class="card activity-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Activity</h2>
+                    </div>
+                    <div class="activity-feed" id="activityFeed">
+                    </div>
+                </section>
+
+                <!-- Peak Hours -->
+                <section class="card peak-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Peak Hours</h2>
+                    </div>
+                    <div class="peak-bars" id="peakBars">
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
